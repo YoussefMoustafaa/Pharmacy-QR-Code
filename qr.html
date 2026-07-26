@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sherif Pharmacy QR | رمز الصيدلية</title>
+    <link rel="icon" type="image/png" href="public/assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Sora:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #111111;
+        --muted: #5c5c5c;
+        --cream: #f3efe6;
+        --line: rgba(17, 17, 17, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Sora", system-ui, sans-serif;
+        color: var(--ink);
+        background: linear-gradient(165deg, #f7f3eb, var(--cream) 50%, #e6dfd2);
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+      }
+
+      .card {
+        width: min(420px, 100%);
+        background: rgba(255, 255, 255, 0.9);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 1.75rem 1.5rem 1.5rem;
+        text-align: center;
+        box-shadow: 0 20px 50px rgba(17, 17, 17, 0.1);
+      }
+
+      .logo {
+        width: min(220px, 70%);
+        height: auto;
+        border-radius: 14px;
+        background: var(--cream);
+        border: 1px solid var(--line);
+        margin-bottom: 0.85rem;
+      }
+
+      h1 {
+        margin: 0 0 0.35rem;
+        font-size: 1.55rem;
+        color: var(--ink);
+      }
+
+      .ar {
+        font-family: "Cairo", sans-serif;
+        font-weight: 800;
+        color: var(--ink);
+        margin: 0 0 0.75rem;
+      }
+
+      p {
+        margin: 0 0 1.25rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      #qr {
+        width: 260px;
+        height: 260px;
+        margin: 0 auto 1rem;
+        border-radius: 18px;
+        background: #fff;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+      }
+
+      #qr canvas,
+      #qr img {
+        width: 240px !important;
+        height: 240px !important;
+        border-radius: 12px;
+      }
+
+      .url {
+        font-size: 0.78rem;
+        word-break: break-all;
+        color: var(--ink);
+        margin-bottom: 1.1rem;
+      }
+
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        justify-content: center;
+      }
+
+      button,
+      a.btn {
+        appearance: none;
+        border: 0;
+        border-radius: 999px;
+        padding: 0.75rem 1.15rem;
+        font: inherit;
+        font-weight: 600;
+        font-size: 0.92rem;
+        cursor: pointer;
+        text-decoration: none;
+        color: #fff;
+        background: var(--ink);
+      }
+
+      a.btn.secondary,
+      button.secondary {
+        background: #fff;
+        color: var(--ink);
+        border: 1px solid var(--line);
+      }
+
+      .hint {
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      label {
+        display: grid;
+        gap: 0.35rem;
+        text-align: start;
+        margin: 0 0 1rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      input {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 0.7rem 0.85rem;
+        font: inherit;
+        font-weight: 500;
+        color: var(--ink);
+        background: #fff;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+          padding: 0;
+        }
+
+        .no-print {
+          display: none !important;
+        }
+
+        .card {
+          box-shadow: none;
+          border: none;
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <img class="logo" src="public/assets/logo.png" alt="Sherif Pharmacy" />
+      <h1>Sherif Pharmacy</h1>
+      <p class="ar">صيدلية شريف</p>
+      <p>Scan to call, WhatsApp, or get directions · امسح للتواصل</p>
+
+      <div id="qr" aria-label="QR code"></div>
+      <div class="url" id="urlLabel"></div>
+
+      <label class="no-print" for="siteUrl">
+        Public page URL (after hosting)
+        <input
+          id="siteUrl"
+          type="url"
+          placeholder="https://your-domain.com/"
+          autocomplete="off"
+        />
+      </label>
+
+      <div class="row no-print">
+        <button type="button" id="downloadBtn">Download PNG</button>
+        <button type="button" class="secondary" id="printBtn">Print</button>
+        <a class="btn secondary" href="index.html">Open page</a>
+      </div>
+      <p class="hint no-print">
+        Tip: host <code>index.html</code>, paste the live URL above, then
+        download/print the QR for the pharmacy window.
+      </p>
+    </div>
+
+    <script src="public/qrcode.min.js"></script>
+    <script>
+      const qrEl = document.getElementById("qr");
+      const urlLabel = document.getElementById("urlLabel");
+      const siteUrl = document.getElementById("siteUrl");
+      const downloadBtn = document.getElementById("downloadBtn");
+      const printBtn = document.getElementById("printBtn");
+
+      function contactUrl() {
+        const custom = siteUrl.value.trim();
+        if (custom) return custom.replace(/\/?$/, "/");
+        return new URL("index.html", window.location.href).href;
+      }
+
+      function renderQr() {
+        const url = contactUrl();
+        urlLabel.textContent = url;
+        qrEl.innerHTML = "";
+        new QRCode(qrEl, {
+          text: url,
+          width: 240,
+          height: 240,
+          colorDark: "#111111",
+          colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.M,
+        });
+      }
+
+      siteUrl.addEventListener("input", () => {
+        clearTimeout(window.__qrTimer);
+        window.__qrTimer = setTimeout(renderQr, 250);
+      });
+
+      downloadBtn.addEventListener("click", () => {
+        const canvas = qrEl.querySelector("canvas");
+        const img = qrEl.querySelector("img");
+        const dataUrl = canvas
+          ? canvas.toDataURL("image/png")
+          : img
+            ? img.src
+            : null;
+        if (!dataUrl) return;
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = "sherif-pharmacy-qr.png";
+        a.click();
+      });
+
+      printBtn.addEventListener("click", () => window.print());
+
+      renderQr();
+    </script>
+  </body>
+</html>

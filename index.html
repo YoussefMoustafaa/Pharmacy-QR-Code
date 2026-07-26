@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sherif Pharmacy — Call, WhatsApp, InstaPay, Vodafone Cash, and find us on the map. Open 8:00AM – 2:00AM in Giza, Egypt."
+    />
+    <meta name="theme-color" content="#F3EFE6" />
+    <title>Sherif Pharmacy | صيدلية شريف</title>
+    <link rel="icon" type="image/png" href="public/assets/logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800&family=Sora:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="atmosphere" aria-hidden="true">
+      <div class="blob blob-a"></div>
+      <div class="blob blob-b"></div>
+      <div class="grid-fade"></div>
+    </div>
+
+    <header class="topbar">
+      <button
+        type="button"
+        class="lang-toggle"
+        id="langToggle"
+        aria-label="Switch language"
+      >
+        <span data-i18n="langSwitch">العربية</span>
+      </button>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <div class="logo-wrap">
+          <img
+            class="logo"
+            src="public/assets/logo.png"
+            alt="Sherif Pharmacy logo"
+            width="280"
+            height="160"
+          />
+        </div>
+
+        <p class="eyebrow" data-i18n="eyebrow">8:00AM – 2:00AM · Giza, Egypt</p>
+        <h1 class="brand" data-i18n="brand">Sherif Pharmacy</h1>
+        <p class="lead" data-i18n="lead">
+          Call, WhatsApp, pay via InstaPay or Vodafone Cash, or get directions —
+          all in one tap.
+        </p>
+      </section>
+
+      <section class="actions" aria-label="Contact actions">
+        <a class="action action-call" href="tel:+201013035936">
+          <span class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M7.2 3.8c.5-.5 1.3-.6 1.9-.2l2.1 1.4c.6.4.8 1.2.5 1.9l-.9 2.1c-.2.4-.1.9.2 1.2l3.8 3.8c.3.3.8.4 1.2.2l2.1-.9c.7-.3 1.5-.1 1.9.5l1.4 2.1c.4.6.3 1.4-.2 1.9l-1.3 1.3c-.6.6-1.4.9-2.2.8-2.1-.3-5.1-1.7-8.1-4.7s-4.4-6-4.7-8.1c-.1-.8.2-1.6.8-2.2l1.5-1.4Z"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span class="action-copy">
+            <strong data-i18n="callTitle">Call pharmacy</strong>
+            <small dir="ltr">+20 101 303 5936</small>
+          </span>
+        </a>
+
+        <a
+          class="action action-wa"
+          href="https://wa.me/201013035936"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12.04 2C6.58 2 2.15 6.4 2.15 11.83c0 1.9.5 3.67 1.38 5.22L2 22l5.12-1.49a9.9 9.9 0 0 0 4.92 1.3h.01c5.46 0 9.89-4.4 9.89-9.83C21.94 6.4 17.5 2 12.04 2Zm5.76 13.96c-.24.67-1.4 1.23-1.94 1.3-.5.07-1.13.1-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.93-4.36-.15-.2-1.18-1.57-1.18-3 0-1.42.74-2.12 1-2.41.26-.29.57-.36.76-.36h.55c.18 0 .42-.07.65.5.24.58.8 2 .87 2.14.07.15.12.32.02.51-.1.2-.15.32-.3.5-.15.17-.31.38-.45.51-.15.15-.3.31-.13.6.17.3.76 1.25 1.63 2.03 1.12 1 2.07 1.31 2.36 1.46.3.15.47.12.64-.07.17-.2.74-.86.94-1.15.2-.3.4-.24.67-.14.27.1 1.72.81 2.02.96.3.15.5.22.57.34.08.13.08.74-.16 1.41Z"
+              />
+            </svg>
+          </span>
+          <span class="action-copy">
+            <strong data-i18n="waTitle">WhatsApp</strong>
+            <small data-i18n="waSub">Chat with the pharmacy</small>
+          </span>
+        </a>
+
+        <button
+          type="button"
+          class="action action-instapay"
+          id="instapayBtn"
+          data-phone="+201000006270"
+        >
+          <span class="action-icon" aria-hidden="true">
+            <img
+              src="public/assets/instapay.png"
+              alt=""
+              width="48"
+              height="48"
+            />
+          </span>
+          <span class="action-copy">
+            <strong data-i18n="instapayTitle">InstaPay</strong>
+            <small dir="ltr">+20 100 000 6270</small>
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="action action-vodafone"
+          id="vodafoneBtn"
+          data-phone="+201000006270"
+        >
+          <span class="action-icon" aria-hidden="true">
+            <img
+              src="public/assets/vodafone.svg"
+              alt=""
+              width="48"
+              height="48"
+            />
+          </span>
+          <span class="action-copy">
+            <strong data-i18n="vodafoneTitle">Vodafone Cash</strong>
+            <small dir="ltr">+20 100 000 6270</small>
+          </span>
+        </button>
+
+        <a
+          class="action action-maps"
+          href="https://www.google.com/maps/search/?api=1&query=10+Messaha+Sq.+Safir+Hotel+Dokki+Giza+Egypt"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span class="action-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+              />
+              <circle
+                cx="12"
+                cy="10"
+                r="2.4"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+            </svg>
+          </span>
+          <span class="action-copy">
+            <strong data-i18n="mapsTitle"
+              >10 Messaha Sq., in front of Safir Hotel, Dokki</strong
+            >
+            <small data-i18n="mapsSub">Open in Google Maps</small>
+          </span>
+        </a>
+      </section>
+
+      <section class="meta">
+        <div class="meta-item">
+          <span class="meta-label" data-i18n="hoursLabel">Hours</span>
+          <span class="meta-value" data-i18n="hoursValue">8:00AM – 2:00AM</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label" data-i18n="cityLabel">Location</span>
+          <span class="meta-value" data-i18n="cityValue">Giza, Egypt</span>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p data-i18n="footer">Sherif Pharmacy · Always here for you</p>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
