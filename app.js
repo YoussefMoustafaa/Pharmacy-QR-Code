@@ -12,9 +12,9 @@ const translations = {
     vodafoneTitle: "Vodafone Cash",
     mapsTitle: "10 Messaha Sq., in front of Safir Hotel, Dokki",
     mapsSub: "Open in Google Maps",
-    discountsTitle: "Discounts",
-    discountA: "Get 2.5% off when buying products worth of 5,000 EGP or higher",
-    discountB: "Get 5% off when buying products worth of 10,000 EGP or higher",
+    discountsTitle: "Discount Program",
+    discountA: "2.5% off on purchases of 5,000 EGP or more",
+    discountB: "5% off on purchases of 10,000 EGP or more",
     hoursLabel: "Hours",
     hoursValue: "8:00AM – 2:00AM",
     cityLabel: "Location",
@@ -35,9 +35,9 @@ const translations = {
     vodafoneTitle: "فودافون كاش",
     mapsTitle: "١٠ ميدان المساحة، امام فندق سفير، الدقي",
     mapsSub: "افتح في خرائط جوجل",
-    discountsTitle: "الخصومات",
-    discountA: "خصم ٢٫٥٪ عند شراء منتجات بقيمة ٥٬٠٠٠ جنيه أو أكثر",
-    discountB: "خصم ٥٪ عند شراء منتجات بقيمة ١٠٬٠٠٠ جنيه أو أكثر",
+    discountsTitle: "برنامج الخصومات",
+    discountA: "خصم ٢٫٥٪ على مشتريات بقيمة ٥٬٠٠٠ جنيه أو أكثر",
+    discountB: "خصم ٥٪ على مشتريات بقيمة ١٠٬٠٠٠ جنيه أو أكثر",
     hoursLabel: "المواعيد",
     hoursValue: "٨:٠٠ ص – ٢:٠٠ ص",
     cityLabel: "الموقع",
@@ -106,6 +106,19 @@ function initVodafoneCopy() {
   });
 }
 
+function initDiscountAccordion() {
+  const accordion = document.getElementById("discountAccordion");
+  const toggle = document.getElementById("discountToggle");
+  const panel = document.getElementById("discountPanel");
+  if (!accordion || !toggle || !panel) return;
+
+  toggle.addEventListener("click", () => {
+    const open = accordion.classList.toggle("is-open");
+    toggle.setAttribute("aria-expanded", String(open));
+    panel.setAttribute("aria-hidden", String(!open));
+  });
+}
+
 function initLanguage() {
   const saved = localStorage.getItem("sherif-lang");
   const preferred =
@@ -124,3 +137,4 @@ function initLanguage() {
 
 initLanguage();
 initVodafoneCopy();
+initDiscountAccordion();
