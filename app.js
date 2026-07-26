@@ -8,15 +8,19 @@ const translations = {
     waTitle: "WhatsApp",
     waSub: "Chat with the pharmacy",
     instapayTitle: "InstaPay",
+    instapaySub: "Open InstaPay",
     vodafoneTitle: "Vodafone Cash",
     mapsTitle: "10 Messaha Sq., in front of Safir Hotel, Dokki",
     mapsSub: "Open in Google Maps",
+    discountsTitle: "Discounts",
+    discountA: "Get 2.5% off when buying products worth of 5,000 EGP or higher",
+    discountB: "Get 5% off when buying products worth of 10,000 EGP or higher",
     hoursLabel: "Hours",
     hoursValue: "8:00AM – 2:00AM",
     cityLabel: "Location",
     cityValue: "Giza, Egypt",
     footer: "Sherif Pharmacy · Always here for you",
-    toastCopied: "Number copied — opening app…",
+    toastCopied: "Vodafone Cash number copied",
   },
   ar: {
     langSwitch: "English",
@@ -27,15 +31,19 @@ const translations = {
     waTitle: "واتساب",
     waSub: "راسل الصيدلية",
     instapayTitle: "إنستاباي",
+    instapaySub: "افتح إنستاباي",
     vodafoneTitle: "فودافون كاش",
     mapsTitle: "١٠ ميدان المساحة، امام فندق سفير، الدقي",
     mapsSub: "افتح في خرائط جوجل",
+    discountsTitle: "الخصومات",
+    discountA: "خصم ٢٫٥٪ عند شراء منتجات بقيمة ٥٬٠٠٠ جنيه أو أكثر",
+    discountB: "خصم ٥٪ عند شراء منتجات بقيمة ١٠٬٠٠٠ جنيه أو أكثر",
     hoursLabel: "المواعيد",
     hoursValue: "٨:٠٠ ص – ٢:٠٠ ص",
     cityLabel: "الموقع",
     cityValue: "الجيزة، مصر",
     footer: "صيدلية شريف · دائماً في خدمتك",
-    toastCopied: "تم نسخ الرقم — جاري فتح التطبيق…",
+    toastCopied: "تم نسخ رقم فودافون كاش",
   },
 };
 
@@ -82,64 +90,20 @@ async function copyText(text) {
   }
 }
 
-function openAppOrStore({ androidIntent, iosScheme, storeUrl }) {
-  const isAndroid = /Android/i.test(navigator.userAgent);
-  const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const started = Date.now();
-
-  if (isAndroid && androidIntent) {
-    window.location.href = androidIntent;
-    setTimeout(() => {
-      if (Date.now() - started < 1600) window.open(storeUrl, "_blank");
-    }, 1200);
-    return;
-  }
-
-  if (isIOS && iosScheme) {
-    window.location.href = iosScheme;
-    setTimeout(() => {
-      if (Date.now() - started < 1600) window.open(storeUrl, "_blank");
-    }, 1200);
-    return;
-  }
-
-  window.open(storeUrl, "_blank");
-}
-
-function initPayButtons() {
-  const instapayBtn = document.getElementById("instapayBtn");
+function initVodafoneCopy() {
   const vodafoneBtn = document.getElementById("vodafoneBtn");
+  if (!vodafoneBtn) return;
 
-  async function handlePay(btn, config) {
-    const phone = btn.dataset.phone || "+201000006270";
+  vodafoneBtn.addEventListener("click", async () => {
+    const phone = vodafoneBtn.dataset.phone || "+201000006270";
     const local = phone.replace(/^\+20/, "0");
-    await copyText(local);
-    showToast(translations[currentLang()].toastCopied);
-    openAppOrStore(config);
-  }
-
-  if (instapayBtn) {
-    instapayBtn.addEventListener("click", () =>
-      handlePay(instapayBtn, {
-        androidIntent:
-          "intent://#Intent;package=com.egyptianbanks.instapay;scheme=https;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.egyptianbanks.instapay;end",
-        iosScheme: "instapay://",
-        storeUrl:
-          "https://apps.apple.com/eg/app/instapay-egypt/id6443915040",
-      })
+    const ok = await copyText(local);
+    showToast(
+      ok
+        ? translations[currentLang()].toastCopied
+        : translations[currentLang()].toastCopied
     );
-  }
-
-  if (vodafoneBtn) {
-    vodafoneBtn.addEventListener("click", () =>
-      handlePay(vodafoneBtn, {
-        androidIntent:
-          "intent://#Intent;package=com.emeint.android.myservices;scheme=https;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.emeint.android.myservices;end",
-        iosScheme: "anavodafone://",
-        storeUrl: "https://apps.apple.com/eg/app/ana-vodafone/id1062531920",
-      })
-    );
-  }
+  });
 }
 
 function initLanguage() {
@@ -159,4 +123,4 @@ function initLanguage() {
 }
 
 initLanguage();
-initPayButtons();
+initVodafoneCopy();

@@ -337,12 +337,72 @@ html[lang="ar"] .brand {
   opacity: 1;
 }
 
+.discounts {
+  margin-top: 1.5rem;
+  animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.52s both;
+}
+
+.section-title {
+  margin: 0 0 0.75rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+}
+
+html[lang="ar"] .section-title {
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 1rem;
+}
+
+.discount-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.discount-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.95rem 1.05rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--line);
+  pointer-events: none;
+  user-select: none;
+}
+
+.discount-badge {
+  flex: 0 0 auto;
+  min-width: 3.1rem;
+  height: 2.2rem;
+  display: grid;
+  place-items: center;
+  padding: 0 0.55rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.discount-item p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
 .meta {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.85rem;
   margin-top: 1.25rem;
-  animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
+  animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.58s both;
 }
 
 .meta-item {
