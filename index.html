@@ -8,7 +8,12 @@
       content="Sherif Pharmacy — Call, WhatsApp, InstaPay, Vodafone Cash, and find us on the map. Open 8:00AM – 2:00AM in Giza, Egypt."
     />
     <meta name="theme-color" content="#F3EFE6" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Sherif Pharmacy" />
+    <meta name="mobile-web-app-capable" content="yes" />
     <title>Sherif Pharmacy</title>
+    <link rel="manifest" href="manifest.webmanifest" />
     <link rel="icon" type="image/png" href="public/assets/favicon.png" />
     <link rel="apple-touch-icon" href="public/assets/logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -29,7 +34,23 @@
     <header class="topbar">
       <button
         type="button"
-        class="lang-toggle"
+        class="topbar-btn shortcut-top-btn"
+        id="shortcutTopBtn"
+        aria-label="Add shortcut"
+      >
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M12 5v14M5 12h14"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+        </svg>
+        <span data-i18n="shortcutTop">Shortcut</span>
+      </button>
+      <button
+        type="button"
+        class="topbar-btn lang-toggle"
         id="langToggle"
         aria-label="Switch language"
       >
@@ -235,6 +256,40 @@
     </footer>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div
+      class="shortcut-overlay"
+      id="shortcutOverlay"
+      hidden
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="shortcutTitle"
+    >
+      <div class="shortcut-card">
+        <img
+          class="shortcut-logo"
+          src="public/assets/logo.png"
+          alt=""
+          width="72"
+          height="72"
+        />
+        <h2 id="shortcutTitle" data-i18n="shortcutTitle">
+          Add Sherif Pharmacy to your home screen?
+        </h2>
+        <p data-i18n="shortcutBody">
+          Create a shortcut for faster access to call, WhatsApp, and payments.
+        </p>
+        <p class="shortcut-hint" id="shortcutHint" hidden></p>
+        <div class="shortcut-actions">
+          <button type="button" class="shortcut-btn primary" id="shortcutAdd">
+            <span data-i18n="shortcutAdd">Add shortcut</span>
+          </button>
+          <button type="button" class="shortcut-btn ghost" id="shortcutSkip">
+            <span data-i18n="shortcutSkip">Not now</span>
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script src="app.js"></script>
   </body>

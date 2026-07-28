@@ -21,6 +21,17 @@ const translations = {
     cityValue: "Giza, Egypt",
     footer: "Sherif Pharmacy · Always here for you",
     toastCopied: "Vodafone Cash number copied",
+    shortcutTitle: "Add Sherif Pharmacy to your home screen?",
+    shortcutBody:
+      "Create a shortcut for faster access to call, WhatsApp, and payments.",
+    shortcutAdd: "Add shortcut",
+    shortcutSkip: "Not now",
+    shortcutTop: "Shortcut",
+    shortcutIosHint:
+      "Tap Share, then “Add to Home Screen”, then Add.",
+    shortcutDesktopHint:
+      "Use your browser menu → Install app / Add to Home screen.",
+    shortcutDone: "Shortcut ready",
   },
   ar: {
     langSwitch: "English",
@@ -44,6 +55,17 @@ const translations = {
     cityValue: "الجيزة، مصر",
     footer: "صيدلية شريف · دائماً في خدمتك",
     toastCopied: "تم نسخ رقم فودافون كاش",
+    shortcutTitle: "إضافة صيدلية شريف إلى الشاشة الرئيسية؟",
+    shortcutBody:
+      "أنشئ اختصاراً للوصول السريع للاتصال وواتساب والدفع.",
+    shortcutAdd: "إضافة اختصار",
+    shortcutSkip: "ليس الآن",
+    shortcutTop: "حفظ",
+    shortcutIosHint:
+      "اضغط مشاركة، ثم «إضافة إلى الشاشة الرئيسية»، ثم إضافة.",
+    shortcutDesktopHint:
+      "من قائمة المتصفح اختر تثبيت التطبيق / إضافة إلى الشاشة الرئيسية.",
+    shortcutDone: "تم تجهيز الاختصار",
   },
 };
 
@@ -119,6 +141,101 @@ function initDiscountAccordion() {
   });
 }
 
+const SHORTCUT_KEY = "sherif-shortcut-prompt";
+
+function isIos() {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+}
+
+function isStandalone() {
+  return (
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true
+  );
+}
+
+function initShortcutPrompt() {
+  const overlay = document.getElementById("shortcutOverlay");
+  const addBtn = document.getElementById("shortcutAdd");
+  const skipBtn = document.getElementById("shortcutSkip");
+  const hint = document.getElementById("shortcutHint");
+  const topBtn = document.getElementById("shortcutTopBtn");
+  if (!overlay || !addBtn || !skipBtn) return;
+
+  let deferredPrompt = null;
+
+  if (isStandalone()) {
+    if (topBtn) topBtn.hidden = true;
+    return;
+  }
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+  });
+
+  window.addEventListener("appinstalled", () => {
+    deferredPrompt = null;
+    if (topBtn) topBtn.hidden = true;
+    localStorage.setItem(SHORTCUT_KEY, "1");
+  });
+
+  function closePrompt(remember) {
+    overlay.classList.remove("is-visible");
+    window.setTimeout(() => overlay.setAttribute("hidden", ""), 280);
+    if (remember) localStorage.setItem(SHORTCUT_KEY, "1");
+  }
+
+  function openPrompt() {
+    if (hint) {
+      hint.hidden = true;
+      hint.textContent = "";
+    }
+    overlay.removeAttribute("hidden");
+    requestAnimationFrame(() => overlay.classList.add("is-visible"));
+  }
+
+  async function handleAddShortcut() {
+    const t = translations[currentLang()];
+
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      if (choice.outcome === "accepted") {
+        showToast(t.shortcutDone);
+        if (topBtn) topBtn.hidden = true;
+      }
+      closePrompt(true);
+      return;
+    }
+
+    if (hint) {
+      hint.hidden = false;
+      hint.textContent = isIos() ? t.shortcutIosHint : t.shortcutDesktopHint;
+    }
+  }
+
+  addBtn.addEventListener("click", handleAddShortcut);
+  skipBtn.addEventListener("click", () => closePrompt(true));
+
+  if (topBtn) {
+    topBtn.addEventListener("click", openPrompt);
+  }
+
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) closePrompt(true);
+  });
+
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  }
+
+  if (!localStorage.getItem(SHORTCUT_KEY)) {
+    window.setTimeout(openPrompt, 700);
+  }
+}
+
 function initLanguage() {
   const saved = localStorage.getItem("sherif-lang");
   const preferred =
@@ -138,3 +255,4 @@ function initLanguage() {
 initLanguage();
 initVodafoneCopy();
 initDiscountAccordion();
+initShortcutPrompt();
