@@ -163,6 +163,22 @@ html[lang="ar"] body {
   animation: rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+.logo-link {
+  display: inline-block;
+  border-radius: 18px;
+  line-height: 0;
+  transition: transform 0.22s ease;
+}
+
+.logo-link:hover {
+  transform: scale(1.03);
+}
+
+.logo-link:focus-visible {
+  outline: 3px solid rgba(17, 17, 17, 0.25);
+  outline-offset: 4px;
+}
+
 .logo {
   width: min(300px, 78vw);
   height: auto;
