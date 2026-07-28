@@ -5,12 +5,12 @@ const ASSETS = [
   "./styles.css",
   "./app.js",
   "./manifest.webmanifest",
-  "./public/assets/logo.png",
-  "./public/assets/favicon.png",
-  "./public/assets/icon-192.png",
-  "./public/assets/icon-512.png",
-  "./public/assets/instapay.png",
-  "./public/assets/vodafone.svg",
+  "./assets/logo.png",
+  "./assets/favicon.png",
+  "./assets/icon-192.png",
+  "./assets/icon-512.png",
+  "./assets/instapay.png",
+  "./assets/vodafone.svg",
 ];
 
 self.addEventListener("install", (event) => {
