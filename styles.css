@@ -362,6 +362,10 @@ html[lang="ar"] .brand {
   background: var(--ink-soft);
 }
 
+.action-review .action-icon {
+  background: linear-gradient(145deg, #fbbc04, #f59e0b);
+}
+
 .action-copy {
   display: grid;
   gap: 0.15rem;
@@ -411,7 +415,7 @@ html[lang="ar"] .brand {
 }
 
 .discounts {
-  margin-top: 1.5rem;
+  margin-top: 0.85rem;
   animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.52s both;
 }
 
@@ -534,7 +538,7 @@ html[lang="ar"] .brand {
 
 .meta {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 0.85rem;
   margin-top: 1.25rem;
   animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.58s both;
@@ -546,6 +550,11 @@ html[lang="ar"] .brand {
   background: rgba(255, 255, 255, 0.55);
   border: 1px solid var(--line);
   text-align: center;
+}
+
+.meta-item-solo {
+  width: min(280px, 100%);
+  margin: 0 auto;
 }
 
 .meta-label {
@@ -569,6 +578,15 @@ html[lang="ar"] .meta-label {
   color: var(--ink);
   font-size: 0.95rem;
   line-height: 1.35;
+}
+
+.reviews {
+  margin: 0.85rem 0 0;
+  animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+}
+
+.reviews .action {
+  animation: none;
 }
 
 .footer {
@@ -729,9 +747,5 @@ html[lang="ar"] .meta-label {
 @media (max-width: 420px) {
   .action {
     padding: 0.95rem 1rem;
-  }
-
-  .meta {
-    grid-template-columns: 1fr;
   }
 }
