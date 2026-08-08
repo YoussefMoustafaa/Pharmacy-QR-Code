@@ -228,7 +228,37 @@ function initShortcutPrompt() {
   });
 
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js").catch(() => {});
+    const SW_URL = "./sw.js?v=3";
+
+    navigator.serviceWorker
+      .register(SW_URL)
+      .then((registration) => {
+        // Safari often keeps an old worker unless we explicitly check
+        registration.update().catch(() => {});
+        setInterval(() => registration.update().catch(() => {}), 60 * 1000);
+
+        if (registration.waiting) {
+          registration.waiting.postMessage({ type: "SKIP_WAITING" });
+        }
+
+        registration.addEventListener("updatefound", () => {
+          const worker = registration.installing;
+          if (!worker) return;
+          worker.addEventListener("statechange", () => {
+            if (worker.state === "installed" && navigator.serviceWorker.controller) {
+              worker.postMessage({ type: "SKIP_WAITING" });
+            }
+          });
+        });
+      })
+      .catch(() => {});
+
+    let refreshing = false;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (refreshing) return;
+      refreshing = true;
+      window.location.reload();
+    });
   }
 
   if (!localStorage.getItem(SHORTCUT_KEY)) {
